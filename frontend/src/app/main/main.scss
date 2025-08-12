@@ -2,7 +2,7 @@
   border-radius: 8px;
   padding: 1rem;
 }
-/* Remove number input spinners */
+
 .no-spinner::-webkit-outer-spin-button,
 .no-spinner::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -13,7 +13,6 @@
   -moz-appearance: textfield; /* Firefox */
 }
 
-/* Currency flags (requires currency-flags.css library or similar) */
 .currency-flag {
   display: inline-block;
   width: 24px;
@@ -22,47 +21,10 @@
   border-radius: 2px;
 }
 
-/* Form field consistency */
 .mat-form-field {
   font-size: 15px;
 }
 
-
-/* Custom select panel styling */
-.currency-select-panel {
-  max-height: 400px !important;
-  border-radius: 12px !important;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1) !important;
-  margin-top: 8px !important;
-}
-
-/* Currency suffix styling */
-.currency-suffix {
-  color: #666;
-  font-weight: 500;
-  margin-left: 4px;
-}
-
-/* Input field focus enhancement */
-.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
-  color: var(--primary-color);
-}
-
-/* Label styling */
-.mat-form-field-label {
-  font-weight: 500 !important;
-}
-
-/* Flag sizing */
-.currency-flag {
-  width: 24px;
-  height: 16px;
-  border-radius: 2px;
-  display: inline-block;
-  background-size: cover;
-}
-
-/* Remove button spacing */
 .history-item button {
   margin-left: 12px;
 }
@@ -112,12 +74,7 @@
     min-width: 150px !important;
     width: auto !important;
   }
-
- 
 }
-
-
-
 
 @keyframes spin {
   from {

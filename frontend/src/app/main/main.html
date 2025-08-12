@@ -79,21 +79,15 @@
 
     @if (history.length > 0) {
     <div class="list-group">
-      @for (item of history; track trackByDate($index, item)) {
+      @for (item of history ;track trackByDate($index, item)) {
       <div class="list-group-item d-flex justify-content-between align-items-center shadow-sm rounded-3 mb-2"
         [appHighlightNew]="item === history[0]">
         <div>
-          <div class="d-flex align-items-center mb-1">
-            <span class="badge bg-primary bg-opacity-10 text-primary fw-normal me-2">{{ item.from }}</span>
-            <mat-icon class="mx-2 text-primary" style="font-size: 18px;">arrow_right_alt</mat-icon>
-            <span class="badge bg-success bg-opacity-10 text-success fw-normal">{{ item.to }}</span>
-          </div>
-          <div class="fw-bold">{{ item.amount }} → {{ item.result | number:'1.2-2' }}</div>
+          <strong>{{ item.amount }} {{ item.from }}</strong>
+          <mat-icon class="mx-1 text-primary" style="font-size: 18px;">arrow_forward</mat-icon>
+          <strong>{{ item.result | number:'1.2-2' }} {{ item.to }}</strong>
           <div class="small text-muted">{{ item.date }}</div>
         </div>
-        <button mat-icon-button color="warn" (click)="removeHistoryItem(item)" matTooltip="Remove">
-          <mat-icon>close</mat-icon>
-        </button>
       </div>
       }
     </div>
