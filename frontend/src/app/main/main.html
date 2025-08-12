@@ -56,16 +56,6 @@
       </div>
     </form>
 
-    @if (result !== null) {
-    <div class="mt-4 text-center p-4 bg-light rounded-3 border">
-      <h3 class="text-success mb-2 fw-bold">
-        {{ currencyForm.value.amount }} {{ currencyForm.value.fromCurrency }} =
-        <span class="display-6">{{ result | number:'1.2-2' }}</span> {{ currencyForm.value.toCurrency }}
-      </h3>
-      <small class="text-muted">Exchange rate updated just now</small>
-    </div>
-    }
-  </div>
 
   <div class="mt-5">
     <h4 class="mb-4">Conversion History</h4>
