@@ -77,15 +77,6 @@ export class Main implements OnInit {
     fromCurrency: new FormControl('', Validators.required),
     toCurrency: new FormControl('', Validators.required)
   });
-  
-  swapCurrencies() {
-    const from = this.currencyForm.get('fromCurrency')?.value;
-    const to = this.currencyForm.get('toCurrency')?.value;
-    this.currencyForm.patchValue({
-      fromCurrency: to,
-      toCurrency: from
-    });
-  }
 
   convert() {
     if (this.currencyForm.invalid) return;
@@ -127,6 +118,8 @@ export class Main implements OnInit {
   trackByDate(index: number, item: any) {
     return item.date;
   }
-
+removeHistoryItem(item: any) {
+  this.history = this.history.filter(h => h !== item);
+}
 
 }

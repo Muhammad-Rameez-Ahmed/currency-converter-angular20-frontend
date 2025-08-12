@@ -1,97 +1,102 @@
 <div class="container py-4">
-  <div class="text-center mb-4">
-    <h1 class="fw-bold text-primary">💱 Currency Converter</h1>
+  <div class="text-center mb-5">
+    <h1 class="fw-bold text-primary mb-3">💱 Currency Converter</h1>
   </div>
 
-  <div class="card shadow border-0 rounded-4 p-4">
+  <div class="card shadow-lg border-0 rounded-4 p-4 mb-5" style="background-color: #f8f9fa;">
     <form [formGroup]="currencyForm" (ngSubmit)="convert()">
-      <div class="d-flex flex-wrap gap-3 justify-content-center align-items-end">
+      <div class="d-flex flex-wrap gap-4 justify-content-center align-items-end">
 
-        <!-- From Currency -->
-        <mat-form-field appearance="fill" class="flex-grow-1" style="min-width: 150px;">
-          <mat-label>From Currency</mat-label>
-          <mat-select formControlName="fromCurrency">
+        <mat-form-field appearance="outline" class="flex-grow-1" style="min-width: 220px;">
+          <mat-label class="fw-medium">From Currency</mat-label>
+          <mat-select formControlName="fromCurrency" panelClass="currency-select-panel">
             @for (code of currencies; track code) {
-              <mat-option [value]="code">
-                {{ currencyNames[code].name || code }}
-              </mat-option>
+            <mat-option [value]="code" class="d-flex align-items-center py-2">
+              <span class="currency-flag me-2" [class]="'currency-flag-' + code.toLowerCase()"></span>
+              <div>
+                <div class="fw-medium">{{ currencyNames[code].name || code }}</div>
+              </div>
+            </mat-option>
             }
           </mat-select>
+          <mat-icon matPrefix class="me-2">monetization_on</mat-icon>
         </mat-form-field>
 
-        <!-- Swap Button -->
-        <div class="d-flex align-items-center justify-content-center" style="min-width: 50px; margin-bottom: 25px;">
-          <button mat-icon-button type="button" (click)="swapCurrencies()" matTooltip="Swap Currencies">
-            <mat-icon>swap_horiz</mat-icon>
-          </button>
-        </div>
-
-        <!-- To Currency -->
-        <mat-form-field appearance="fill" class="flex-grow-1" style="min-width: 150px;">
-          <mat-label>To Currency</mat-label>
-          <mat-select formControlName="toCurrency">
+        <mat-form-field appearance="outline" class="flex-grow-1" style="min-width: 220px;">
+          <mat-label class="fw-medium">To Currency</mat-label>
+          <mat-select formControlName="toCurrency" panelClass="currency-select-panel">
             @for (code of currencies; track code) {
-              <mat-option [value]="code">
-                {{ currencyNames[code].name || code }}
-              </mat-option>
+            <mat-option [value]="code" class="d-flex align-items-center py-2">
+              <span class="currency-flag me-2" [class]="'currency-flag-' + code.toLowerCase()"></span>
+              <div>
+                <div class="fw-medium">{{ currencyNames[code].name || code }}</div>
+              </div>
+            </mat-option>
             }
           </mat-select>
+          <mat-icon matPrefix class="me-2">currency_exchange</mat-icon>
         </mat-form-field>
 
-        <!-- Amount -->
-        <mat-form-field appearance="fill" class="flex-grow-1" style="min-width: 150px;">
-          <mat-label>Amount</mat-label>
-          <input matInput formControlName="amount" type="number" min="0.01" />
+        <mat-form-field appearance="outline" class="flex-grow-1" style="min-width: 220px;">
+          <mat-label class="fw-medium">Amount</mat-label>
+          <input matInput formControlName="amount" type="number" min="0.01" class="no-spinner" />
+          <mat-icon matPrefix class="me-2">payments</mat-icon>
         </mat-form-field>
 
       </div>
 
       <div class="text-center mt-4">
-        <button mat-raised-button color="primary" type="submit" [disabled]="isLoading() || currencyForm.invalid">
+        <button mat-raised-button color="primary" type="submit" [disabled]="isLoading() || currencyForm.invalid"
+          class="px-5 py-2 fw-bold">
+          @if (isLoading()) {
+          <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+          }
           Convert
         </button>
       </div>
     </form>
 
-    @if (isLoading()) {
-      <div class="d-flex justify-content-center align-items-center mt-4" >
-        <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
-        <p class="ms-3 mb-0 text-muted">Fetching latest rates...</p>
-      </div>
-    }
-
     @if (result !== null) {
-      <div class="mt-4 text-center p-3 bg-light rounded border">
-        <h3 class="text-success mb-1">
-          {{ currencyForm.value.amount }} {{ currencyForm.value.fromCurrency }} =
-          {{ result | number:'1.2-2' }} {{ currencyForm.value.toCurrency }}
-        </h3>
-        <small class="text-muted">Exchange rate updated just now</small>
-      </div>
+    <div class="mt-4 text-center p-4 bg-light rounded-3 border">
+      <h3 class="text-success mb-2 fw-bold">
+        {{ currencyForm.value.amount }} {{ currencyForm.value.fromCurrency }} =
+        <span class="display-6">{{ result | number:'1.2-2' }}</span> {{ currencyForm.value.toCurrency }}
+      </h3>
+      <small class="text-muted">Exchange rate updated just now</small>
+    </div>
     }
   </div>
 
   <div class="mt-5">
-    <h4 class="mb-3">📜 Conversion History</h4>
+    <h4 class="mb-4">Conversion History</h4>
 
     @if (history.length === 0) {
-      <div class="text-muted fst-italic">No conversions yet</div>
+    <div class="text-center py-5 bg-light rounded-3">
+      <mat-icon class="text-muted mb-2" style="font-size: 48px;">history</mat-icon>
+      <p class="text-muted mb-0">No conversions yet</p>
+    </div>
     }
 
     @if (history.length > 0) {
-      <div class="list-group">
-        @for (item of history ;track trackByDate) {
-          <div class="list-group-item d-flex justify-content-between align-items-center shadow-sm rounded-3 mb-2"
-            [appHighlightNew]="item === history[0]">
-            <div>
-              <strong>{{ item.amount }} {{ item.from }}</strong>
-              <mat-icon class="mx-1 text-primary" style="font-size: 18px;">arrow_forward</mat-icon>
-              <strong>{{ item.result | number:'1.2-2' }} {{ item.to }}</strong>
-              <div class="small text-muted">{{ item.date }}</div>
-            </div>
+    <div class="list-group">
+      @for (item of history; track trackByDate($index, item)) {
+      <div class="list-group-item d-flex justify-content-between align-items-center shadow-sm rounded-3 mb-2"
+        [appHighlightNew]="item === history[0]">
+        <div>
+          <div class="d-flex align-items-center mb-1">
+            <span class="badge bg-primary bg-opacity-10 text-primary fw-normal me-2">{{ item.from }}</span>
+            <mat-icon class="mx-2 text-primary" style="font-size: 18px;">arrow_right_alt</mat-icon>
+            <span class="badge bg-success bg-opacity-10 text-success fw-normal">{{ item.to }}</span>
           </div>
-        }
+          <div class="fw-bold">{{ item.amount }} → {{ item.result | number:'1.2-2' }}</div>
+          <div class="small text-muted">{{ item.date }}</div>
+        </div>
+        <button mat-icon-button color="warn" (click)="removeHistoryItem(item)" matTooltip="Remove">
+          <mat-icon>close</mat-icon>
+        </button>
       </div>
+      }
+    </div>
     }
   </div>
 </div>
