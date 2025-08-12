@@ -1,0 +1,121 @@
+.card {
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+/* Small screens (phones) */
+@media (max-width: 576px) {
+  /* Stack form fields vertically */
+  .d-flex {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  /* Each child takes full width */
+  .d-flex > div,
+  mat-form-field.flex-grow-1 {
+    flex: 1 1 100% !important;
+    width: 100% !important;
+    min-width: auto !important; /* override inline min-width */
+  }
+
+  /* Center the swap button and add spacing */
+  .swap-button,
+  .d-flex > div > button[mat-icon-button] {
+    margin: 0.5rem auto !important;
+  }
+
+  /* Make button full width */
+  .convert-button {
+    width: 100% !important;
+    min-width: auto !important;
+  }
+
+  /* History items stack vertically */
+  .list-group-item {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+}
+
+/* Medium screens (tablets) */
+@media (min-width: 577px) and (max-width: 768px) {
+  .d-flex {
+    gap: 1rem !important;
+  }
+
+  .d-flex > div,
+  mat-form-field.flex-grow-1 {
+    min-width: 150px !important;
+    width: auto !important;
+  }
+
+  /* Swap button margin reset */
+  .swap-button,
+  .d-flex > div > button[mat-icon-button] {
+    margin: 0 !important;
+  }
+}
+
+/* Swap button styling */
+.swap-button {
+  transition: transform 0.3s ease;
+}
+
+.swap-button:hover {
+  transform: scale(1.05);
+}
+
+/* Animate swap button on click (optional) */
+.animate-spin {
+  animation: spin 0.5s ease-in-out;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}
+
+/* Result card animation */
+.result-card {
+  background: linear-gradient(135deg, #28a745, #20c997);
+  border: none;
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Improve currency select panel max height */
+.currency-select-panel {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* Button hover for history list */
+.list-group-item:hover {
+  background-color: #f8f9fa !important;
+  transition: background-color 0.2s ease;
+}
+
+/* Utility */
+.btn-outline-primary.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.bg-gradient-success {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+}
